@@ -1,0 +1,579 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuldip Goswami - Portfolio</title>
+    <meta name="description" content="Kuldip Goswami - Website Developer, Web Designer, Data Analyst, Thumbnail Maker, and Freelancer based in Indore.">
+    <meta name="keywords" content="website developer, web designer, data analyst, thumbnail maker, freelancer, Indore, gaming websites">
+    <meta name="author" content="Kuldip Goswami">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #1a1a2e;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #ff4e50, #f9cb9c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .skill-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: #16213e;
+        }
+        .skill-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .fade-in {
+            opacity: 0;
+            animation: fadeInPopup 1.5s ease-in forwards;
+        }
+        @keyframes fadeInPopup {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        section {
+            scroll-margin-top: 80px;
+            min-height: 100vh;
+        }
+        #home {
+            background: url('https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/BoySitting.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .hero-button {
+            display: inline-block;
+            position: relative;
+            top: 0;
+            margin-top: 10px;
+            background: linear-gradient(to right, #ff4e50, #f9cb9c);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+        .hero-button:hover {
+            transform: scale(1.1);
+        }
+        .cta-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff4e50;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+        .cta-button:hover {
+            background: #f9cb9c;
+            transform: scale(1.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #16213e;
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #ff4e50;
+            transition: color 0.3s;
+        }
+        .close-btn:hover {
+            color: #f9cb9c;
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+        }
+        .slide {
+            display: none;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+        .slide.active {
+            display: block;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        nav {
+            background: #16213e;
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #fff;
+        }
+        @media (max-width: 640px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #16213e;
+                padding: 1rem;
+                animation: slideDown 0.3s ease-in-out;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            @keyframes slideDown {
+                from { transform: translateY(-100%); }
+                to { transform: translateY(0); }
+            }
+            .text-5xl {
+                font-size: 2rem;
+            }
+            .text-xl {
+                font-size: 1rem;
+            }
+            .modal-content {
+                padding: 15px;
+            }
+            .cta-button {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            .hero-section {
+                padding: 1rem;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .about-image {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+        #particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        @media (min-width: 640px) {
+            .grid.sm\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid.lg\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        a {
+            text-decoration: none;
+            margin: 0;
+            border: none;
+        }
+        .portfolio-img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+    <nav>
+        <div class="nav-menu">
+            <span class="text-2xl font-bold gradient-text">Kuldip Goswami</span>
+            <div class="nav-links">
+                <a href="#home" class="text-white hover:text-f9cb9c font-medium">Home</a>
+                <a href="#about" class="text-white hover:text-f9cb9c font-medium">About</a>
+                <a href="#skills" class="text-white hover:text-f9cb9c font-medium">Skills</a>
+                <a href="#portfolio" class="text-white hover:text-f9cb9c font-medium">Portfolio</a>
+                <a href="#contact" class="text-white hover:text-f9cb9c font-medium">Contact</a>
+            </div>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="parallax">
+        <div class="text-center px-4 fade-in hero-section">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4 gradient-text">Hi, I'm Kuldip Goswami</h1>
+            <p class="text-xl md:text-2xl mb-6">Website Developer, Web Designer & Freelancer</p>
+            <a href="#portfolio" class="hero-button px-6 py-3 rounded-full font-semibold transition">Explore My Work</a>
+        </div>
+        <a href="https://t.me/Kuldipgamer01" class="cta-button">Hire Me</a>
+    </section>
+
+    <section id="about" class="py-20 bg-[#16213e] fade-in">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8 gradient-text">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <p class="text-lg text-gray-400 leading-relaxed">
+                        I'm a passionate website developer, web designer, data analyst, thumbnail maker, and freelancer based in Indore. With a BA from Ujjain University, I bring creativity and technical expertise to every project. Whether it's building engaging websites or crafting eye-catching thumbnails, I love turning ideas into reality.
+                    </p>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Sakuna.jpg" alt="Kuldip Goswami" class="rounded-full shadow-md w-full max-w-xs mx-auto about-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <h3 class="text-2xl font-bold text-ff4e50 mb-4">My Vision</h3>
+                <p class="text-gray-400 text-lg">"Great websites are built on trust and collaboration with clients."</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 bg-gray-800 fade-in">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">My Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
+                    <i class="fa-brands fa-html5 text-4xl text-orange-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Website Development</h3>
+                    <p class="text-gray-400">Building responsive and dynamic websites using HTML, CSS, JavaScript, and frameworks.</p>
+                </div>
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
+                    <i class="fa-solid fa-paintbrush text-4xl text-pink-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Web Design</h3>
+                    <p class="text-gray-400">Creating visually appealing and user-friendly designs with tools like Figma and Adobe XD.</p>
+                </div>
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
+                    <i class="fa-solid fa-chart-line text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Data Analysis</h3>
+                    <p class="text-gray-400">Analyzing data to derive insights using Excel and visualization tools.</p>
+                </div>
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
+                    <i class="fa-solid fa-image text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Thumbnail Making</h3>
+                    <p class="text-gray-400">Designing eye-catching YouTube thumbnails using Photoshop and Canva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="py-20 bg-gray-900 fade-in">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">My Portfolio</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-[#16213e] rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal1')">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/CrazyBoyWebsite.jpg" alt="Crazy Boy Website" class="portfolio-img" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Crazy Boy YouTube Website</h3>
+                        <p class="text-gray-400 mb-4">Developed a gaming website for Crazy Boy, a YouTube channel with 4 lakh subscribers, featuring engaging Minecraft design.</p>
+                        <a href="https://kuldipgamer01.github.io/crazyboywebsite/" class="text-f9cb9c hover:underline font-medium">View Project</a>
+                    </div>
+                </div>
+                <div class="bg-[#16213e] rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal2')">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail1.jpg" alt="Creative Thumbnail" class="portfolio-img" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Creative Thumbnails</h3>
+                        <p class="text-gray-400 mb-4">Designed a vibrant thumbnail for a video, optimized for high click-through rates.</p>
+                        <a href="#" class="text-f9cb9c hover:underline font-medium">View Details</a>
+                    </div>
+                </div>
+                <div class="bg-[#16213e] rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal3')">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis1.jpg" alt="Data Analysis Dashboard" class="portfolio-img" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Data Analysis Dashboard</h3>
+                        <p class="text-gray-400 mb-4">Created an interactive dashboard to visualize data trends for a client.</p>
+                        <a href="#" class="text-f9cb9c hover:underline font-medium">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal1')">×</span>
+            <h3 class="text-2xl font-bold mb-4">Crazy Boy YouTube Website</h3>
+            <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/CrazyBoyWebsite.jpg" alt="Crazy Boy Website" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+            <p class="mb-4">Built a dynamic Minecraft-themed website for Crazy Boy, a gaming YouTube channel with over 4 lakh subscribers. Features include immersive design and video integration.</p>
+            <a href="https://kuldipgamer01.github.io/crazyboywebsite/" class="text-white underline font-medium">Visit Website</a>
+        </div>
+    </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal2')">×</span>
+            <h3 class="text-2xl font-bold mb-4">Creative Thumbnails</h3>
+            <div class="slideshow-container">
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail1.jpg" alt="Thumbnail 1" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail2.jpg" alt="Thumbnail 2" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail3.jpg" alt="Thumbnail 3" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail4.jpg" alt="Thumbnail 4" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail5.jpg" alt="Thumbnail 5" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+            </div>
+            <p class="mb-4">Crafted bold, creative thumbnails with vibrant colors and text to boost engagement.</p>
+            <p class="text-white font-medium">Contact for custom designs!</p>
+        </div>
+    </div>
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal3')">×</span>
+            <h3 class="text-2xl font-bold mb-4">Data Analysis Dashboard</h3>
+            <div class="slideshow-container">
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis1.jpg" alt="Data Analysis 1" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis2.jpg" alt="Data Analysis 2" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis3.jpg" alt="Data Analysis 3" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis4.jpg" alt="Data Analysis 4" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis5.jpg" alt="Data Analysis 5" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis6.jpg" alt="Data Analysis 6" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis7.jpg" alt="Data Analysis 7" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis8.jpg" alt="Data Analysis 8" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis9.jpg" alt="Data Analysis 9" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+                <div class="slide">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis10.jpg" alt="Data Analysis 10" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                </div>
+            </div>
+            <p class="mb-4">Developed dashboards to analyze data, offering insights for content optimization.</p>
+            <p class="text-white font-medium">Contact for analytics solutions!</p>
+        </div>
+    </div>
+
+    <section id="contact" class="py-20 bg-[#16213e] fade-in">
+        <div class="container">
+            <h2 class="text-4xl font-bold text-center mb-8 gradient-text">Get in Touch</h2>
+            <p class="text-lg text-gray-400 text-center mb-8 max-w-2xl mx-auto">
+                Want to collaborate or discuss a project? Reach out via email, Instagram, or Telegram!
+            </p>
+            <div class="flex justify-center space-x-6">
+                <a href="/cdn-cgi/l/email-protection#3e4b5c455d50449c4e4a464e4b09444745" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fas fa-envelope mr-2"></i>Email</a>
+                <a href="https://instagram.com/kuldip.gamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fab fa-instagram mr-2"></i>Instagram</a>
+                <a href="https://t.me/Kuldipgamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fab fa-telegram mr-2"></i>Telegram</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container text-center">
+            <p>© 2025 Kuldip Goswami. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.fade-in').forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.2}s`;
+            });
+            particlesJS('particles', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#ff4e50' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true, anim: { enable: false } },
+                    size: { value: 3, random: true, anim: { enable: false } },
+                    line_linked: { enable: false },
+                    move: { enable: true, speed: 1, direction: 'none', random: true, straight: false }
+                },
+                interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } } },
+                retina_detect: true
+            });
+        });
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+            if (modalId === 'modal2' || modalId === 'modal3') {
+                startSlideshow(modalId);
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            document.querySelectorAll('.modal').forEach(modal => {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
+
+        function startSlideshow(modalId) {
+            const slides = document.querySelectorAll(`#${modalId} .slide`);
+            let currentSlide = 0;
+            slides[currentSlide].classList.add('active');
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 2000);
+        }
+
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+    </script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935ec890bf1ac020',t:'MTc0NTU5Mzk5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>
