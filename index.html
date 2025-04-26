@@ -50,11 +50,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             background: #1a1a2e;
             color: #fff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
         }
         .gradient-text {
             background: linear-gradient(to right, #ff4e50, #f9cb9c);
@@ -79,12 +85,16 @@
         }
         section {
             scroll-margin-top: 80px;
+            min-height: 100vh;
         }
         #home {
             background: url('https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/BoySitting.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
             height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .parallax {
             background-attachment: fixed;
@@ -97,12 +107,17 @@
             position: relative;
             top: 0;
             margin-top: 10px;
-            background: #ff4e50;
+            background: linear-gradient(to right, #ff4e50, #f9cb9c);
             color: #fff;
-            transition: background 0.3s;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s;
+            text-decoration: none;
+            border: none;
         }
         .hero-button:hover {
-            background: #f9cb9c;
+            transform: scale(1.1);
         }
         .cta-button {
             position: fixed;
@@ -114,6 +129,8 @@
             border-radius: 50px;
             font-weight: 600;
             transition: all 0.3s;
+            text-decoration: none;
+            border: none;
         }
         .cta-button:hover {
             background: #f9cb9c;
@@ -134,7 +151,7 @@
         .modal-content {
             background: #16213e;
             border-radius: 15px;
-            padding: 25px;
+            padding: 15px;
             max-width: 700px;
             width: 90%;
             text-align: center;
@@ -157,7 +174,8 @@
         .slideshow-container {
             position: relative;
             max-width: 100%;
-            margin: auto;
+            margin: 0 auto;
+            padding: 0;
         }
         .slide {
             display: none;
@@ -181,7 +199,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 7xl;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 1rem 2rem;
         }
@@ -218,7 +236,7 @@
                 to { transform: translateY(0); }
             }
             .text-5xl {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             .text-xl {
                 font-size: 1rem;
@@ -232,6 +250,19 @@
                 padding: 8px 16px;
                 font-size: 0.9rem;
             }
+            .hero-section {
+                padding: 1rem;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .about-image {
+                max-width: 100%;
+                height: auto;
+            }
         }
         #particles {
             position: absolute;
@@ -240,6 +271,39 @@
             top: 0;
             left: 0;
             z-index: -1;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+        @media (min-width: 640px) {
+            .grid.sm\:grid-cols-2 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
+            .grid.lg\:grid-cols-3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        a {
+            text-decoration: none;
+            margin: 0;
+            border: none;
+        }
+        .portfolio-img {
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+            max-height: 200px;
         }
     </style>
 </head>
@@ -261,8 +325,8 @@
         </div>
     </nav>
 
-    <section id="home" class="min-h-screen flex items-center justify-center text-white parallax">
-        <div class="text-center px-4 fade-in">
+    <section id="home" class="parallax">
+        <div class="text-center px-4 fade-in hero-section">
             <h1 class="text-5xl md:text-6xl font-bold mb-4 gradient-text">Hi, I'm Kuldip Goswami</h1>
             <p class="text-xl md:text-2xl mb-6">Website Developer, Web Designer & Freelancer</p>
             <a href="#portfolio" class="hero-button px-6 py-3 rounded-full font-semibold transition">Explore My Work</a>
@@ -270,8 +334,8 @@
         <a href="https://t.me/Kuldipgamer01" class="cta-button">Hire Me</a>
     </section>
 
-    <section id="about" class="py-20 bg-#16213e fade-in">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" class="py-20 bg-[#16213e] fade-in">
+        <div class="container">
             <h2 class="text-4xl font-bold text-center mb-8 gradient-text">About Me</h2>
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="md:w-1/2">
@@ -280,7 +344,7 @@
                     </p>
                 </div>
                 <div class="md:w-1/2">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Sakuna.jpg" alt="Kuldip Goswami" class="rounded-full shadow-md w-full max-w-xs" onerror="this.src='https://via.placeholder.com/150';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Sakuna.jpg" alt="Kuldip Goswami" class="rounded-full shadow-md w-full max-w-xs mx-auto about-image" onerror="this.onerror=null; this.src='https://via.placeholder.com/150';">
                 </div>
             </div>
             <div class="text-center mt-10">
@@ -291,25 +355,25 @@
     </section>
 
     <section id="skills" class="py-20 bg-gray-800 fade-in">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="container">
             <h2 class="text-4xl font-bold text-center mb-12 gradient-text">My Skills</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
-                <div class="bg-#16213e rounded-lg shadow-lg p-6 text-center skill-card">
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
                     <i class="fa-brands fa-html5 text-4xl text-orange-500 mb-4"></i>
                     <h3 class="text-xl font-semibold mb-2">Website Development</h3>
                     <p class="text-gray-400">Building responsive and dynamic websites using HTML, CSS, JavaScript, and frameworks.</p>
                 </div>
-                <div class="bg-#16213e rounded-lg shadow-lg p-6 text-center skill-card">
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
                     <i class="fa-solid fa-paintbrush text-4xl text-pink-400 mb-4"></i>
                     <h3 class="text-xl font-semibold mb-2">Web Design</h3>
                     <p class="text-gray-400">Creating visually appealing and user-friendly designs with tools like Figma and Adobe XD.</p>
                 </div>
-                <div class="bg-#16213e rounded-lg shadow-lg p-6 text-center skill-card">
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
                     <i class="fa-solid fa-chart-line text-4xl text-blue-400 mb-4"></i>
                     <h3 class="text-xl font-semibold mb-2">Data Analysis</h3>
                     <p class="text-gray-400">Analyzing data to derive insights using Excel and visualization tools.</p>
                 </div>
-                <div class="bg-#16213e rounded-lg shadow-lg p-6 text-center skill-card">
+                <div class="bg-[#16213e] rounded-lg shadow-lg p-6 text-center skill-card">
                     <i class="fa-solid fa-image text-4xl text-green-400 mb-4"></i>
                     <h3 class="text-xl font-semibold mb-2">Thumbnail Making</h3>
                     <p class="text-gray-400">Designing eye-catching YouTube thumbnails using Photoshop and Canva.</p>
@@ -319,27 +383,27 @@
     </section>
 
     <section id="portfolio" class="py-20 bg-gray-900 fade-in">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="container">
             <h2 class="text-4xl font-bold text-center mb-12 gradient-text">My Portfolio</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-#16213e rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal1')">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/CrazyBoyWebsite.jpg" alt="Crazy Boy Website" class="w-full h-48 object-cover" onerror="this.src='https://via.placeholder.com/300x200';">
+                <div class="bg-[#16213e] rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal1')">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/CrazyBoyWebsite.jpg" alt="Crazy Boy Website" class="portfolio-img" onerror="this.src='https://via.placeholder.com/300x200';">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Crazy Boy YouTube Website</h3>
                         <p class="text-gray-400 mb-4">Developed a gaming website for Crazy Boy, a YouTube channel with 4 lakh subscribers, featuring engaging Minecraft design.</p>
                         <a href="https://kuldipgamer01.github.io/crazyboywebsite/" class="text-f9cb9c hover:underline font-medium">View Project</a>
                     </div>
                 </div>
-                <div class="bg-#16213e rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal2')">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail1.jpg" alt="Creative Thumbnail" class="w-full h-48 object-cover" onerror="this.src='https://via.placeholder.com/300x200';">
+                <div class="bg-[#16213e] rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal2')">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail1.jpg" alt="Creative Thumbnail" class="portfolio-img" onerror="this.src='https://via.placeholder.com/300x200';">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Creative Thumbnails</h3>
                         <p class="text-gray-400 mb-4">Designed a vibrant thumbnail for a video, optimized for high click-through rates.</p>
                         <a href="#" class="text-f9cb9c hover:underline font-medium">View Details</a>
                     </div>
                 </div>
-                <div class="bg-#16213e rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal3')">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis1.jpg" alt="Data Analysis Dashboard" class="w-full h-48 object-cover" onerror="this.src='https://via.placeholder.com/300x200';">
+                <div class="bg-[#16213e] rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition cursor-pointer" onclick="openModal('modal3')">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis1.jpg" alt="Data Analysis Dashboard" class="portfolio-img" onerror="this.src='https://via.placeholder.com/300x200';">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold mb-2">Data Analysis Dashboard</h3>
                         <p class="text-gray-400 mb-4">Created an interactive dashboard to visualize data trends for a client.</p>
@@ -425,22 +489,22 @@
         </div>
     </div>
 
-    <section id="contact" class="py-20 bg-#16213e fade-in">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" class="py-20 bg-[#16213e] fade-in">
+        <div class="container">
             <h2 class="text-4xl font-bold text-center mb-8 gradient-text">Get in Touch</h2>
             <p class="text-lg text-gray-400 text-center mb-8 max-w-2xl mx-auto">
                 Want to collaborate or discuss a project? Reach out via email, Instagram, or Telegram!
             </p>
             <div class="flex justify-center space-x-6">
-                <a href="/cdn-cgi/l/email-protection#3e4b5c455d50494e4c5a4c405f514e4e1100111f67404a464e4b09444745" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center"><i class="fas fa-envelope mr-2"></i>Email</a>
-                <a href="https://instagram.com/kuldip.gamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center"><i class="fab fa-instagram mr-2"></i>Instagram</a>
-                <a href="https://t.me/Kuldipgamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center"><i class="fab fa-telegram mr-2"></i>Telegram</a>
+                <a href="/cdn-cgi/l/email-protection#3e4b5c455d50449c4e4a464e4b09444745" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fas fa-envelope mr-2"></i>Email</a>
+                <a href="https://instagram.com/kuldip.gamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fab fa-instagram mr-2"></i>Instagram</a>
+                <a href="https://t.me/Kuldipgamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fab fa-telegram mr-2"></i>Telegram</a>
             </div>
         </div>
     </section>
 
     <footer class="bg-gray-900 text-white py-6">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="container text-center">
             <p>© 2025 Kuldip Goswami. All rights reserved.</p>
         </div>
     </footer>
