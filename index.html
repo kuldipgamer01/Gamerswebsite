@@ -60,7 +60,6 @@
             color: #fff;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
         }
         .gradient-text {
             background: linear-gradient(to right, #ff4e50, #f9cb9c);
@@ -85,7 +84,6 @@
         }
         section {
             scroll-margin-top: 80px;
-            min-height: 100vh;
         }
         #home {
             background: url('https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/BoySitting.jpg') no-repeat center center fixed;
@@ -158,6 +156,12 @@
             position: relative;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             color: #fff;
+        }
+        .modal-content img {
+            object-fit: contain;
+            height: auto;
+            max-height: 350px;
+            width: 100%;
         }
         .close-btn {
             position: absolute;
@@ -305,6 +309,10 @@
             height: auto;
             max-height: 200px;
         }
+        #contact {
+            min-height: auto;
+            padding: 40px 0;
+        }
     </style>
 </head>
 <body>
@@ -418,7 +426,7 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal1')">×</span>
             <h3 class="text-2xl font-bold mb-4">Crazy Boy YouTube Website</h3>
-            <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/CrazyBoyWebsite.jpg" alt="Crazy Boy Website" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+            <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/CrazyBoyWebsite.jpg" alt="Crazy Boy Website" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
             <p class="mb-4">Built a dynamic Minecraft-themed website for Crazy Boy, a gaming YouTube channel with over 4 lakh subscribers. Features include immersive design and video integration.</p>
             <a href="https://kuldipgamer01.github.io/crazyboywebsite/" class="text-white underline font-medium">Visit Website</a>
         </div>
@@ -429,19 +437,19 @@
             <h3 class="text-2xl font-bold mb-4">Creative Thumbnails</h3>
             <div class="slideshow-container">
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail1.jpg" alt="Thumbnail 1" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail1.jpg" alt="Thumbnail 1" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail2.jpg" alt="Thumbnail 2" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail2.jpg" alt="Thumbnail 2" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail3.jpg" alt="Thumbnail 3" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail3.jpg" alt="Thumbnail 3" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail4.jpg" alt="Thumbnail 4" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail4.jpg" alt="Thumbnail 4" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail5.jpg" alt="Thumbnail 5" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/Thumbnail5.jpg" alt="Thumbnail 5" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
             </div>
             <p class="mb-4">Crafted bold, creative thumbnails with vibrant colors and text to boost engagement.</p>
@@ -454,34 +462,34 @@
             <h3 class="text-2xl font-bold mb-4">Data Analysis Dashboard</h3>
             <div class="slideshow-container">
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis1.jpg" alt="Data Analysis 1" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis1.jpg" alt="Data Analysis 1" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis2.jpg" alt="Data Analysis 2" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis2.jpg" alt="Data Analysis 2" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis3.jpg" alt="Data Analysis 3" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis3.jpg" alt="Data Analysis 3" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis4.jpg" alt="Data Analysis 4" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis4.jpg" alt="Data Analysis 4" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis5.jpg" alt="Data Analysis 5" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis5.jpg" alt="Data Analysis 5" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis6.jpg" alt="Data Analysis 6" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis6.jpg" alt="Data Analysis 6" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis7.jpg" alt="Data Analysis 7" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis7.jpg" alt="Data Analysis 7" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis8.jpg" alt="Data Analysis 8" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis8.jpg" alt="Data Analysis 8" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis9.jpg" alt="Data Analysis 9" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis9.jpg" alt="Data Analysis 9" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
                 <div class="slide">
-                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis10.jpg" alt="Data Analysis 10" class="w-full h-64 object-cover rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
+                    <img src="https://raw.githubusercontent.com/kuldipgamer01/Websiteimages/main/DataAnalysis10.jpg" alt="Data Analysis 10" class="w-full h-auto max-h-350px rounded-lg mb-4" onerror="this.src='https://via.placeholder.com/300x200';">
                 </div>
             </div>
             <p class="mb-4">Developed dashboards to analyze data, offering insights for content optimization.</p>
@@ -489,16 +497,16 @@
         </div>
     </div>
 
-    <section id="contact" class="py-20 bg-[#16213e] fade-in">
+    <section id="contact" class="bg-[#16213e] fade-in">
         <div class="container">
             <h2 class="text-4xl font-bold text-center mb-8 gradient-text">Get in Touch</h2>
             <p class="text-lg text-gray-400 text-center mb-8 max-w-2xl mx-auto">
                 Want to collaborate or discuss a project? Reach out via email, Instagram, or Telegram!
             </p>
             <div class="flex justify-center space-x-6">
-                <a href="/cdn-cgi/l/email-protection#3e4b5c455d50449c4e4a464e4b09444745" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fas fa-envelope mr-2"></i>Email</a>
-                <a href="https://instagram.com/kuldip.gamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fab fa-instagram mr-2"></i>Instagram</a>
-                <a href="https://t.me/Kuldipgamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center" style="margin: 0; border: none;"><i class="fab fa-telegram mr-2"></i>Telegram</a>
+                <a href="/cdn-cgi/l/email-protection#3e4b5c455d50449c4e4a464e4b09444745" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center"><i class="fas fa-envelope mr-2"></i>Email</a>
+                <a href="https://instagram.com/kuldip.gamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center"><i class="fab fa-instagram mr-2"></i>Instagram</a>
+                <a href="https://t.me/Kuldipgamer01" class="text-f9cb9c hover:text-ff4e50 font-medium flex items-center"><i class="fab fa-telegram mr-2"></i>Telegram</a>
             </div>
         </div>
     </section>
@@ -575,5 +583,6 @@
         });
     </script>
     <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935ec890bf1ac020',t:'MTc0NTU5Mzk5Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93632f4bd9a3b0c7',t:'MTc0NTY0MDE0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
